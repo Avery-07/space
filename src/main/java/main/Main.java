@@ -1,9 +1,9 @@
-package util;
+package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import menus.MainMenu;
+import menus.MainMenuController;
 
 public class Main extends Application {
 
@@ -14,10 +14,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Construction du menu principal
-        MainMenu mainMenu = new MainMenu(primaryStage);
+        MainMenuController mainMenuController = new MainMenuController(primaryStage);
 
         // Création de la scène avec la vue du menu
-        Scene scene = new Scene(mainMenu.getView(), WINDOW_WIDTH, WINDOW_HEIGHT);
+        Scene scene = new Scene(mainMenuController.getView(), WINDOW_WIDTH, WINDOW_HEIGHT);
 
         // Configuration de la fenêtre
         primaryStage.setTitle(WINDOW_TITLE);
