@@ -4,12 +4,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import menus.MainMenuController;
+import util.Text;
 
 public class Main extends Application {
 
     private static final int WINDOW_WIDTH  = 800;
     private static final int WINDOW_HEIGHT = 600;
-    private static final String WINDOW_TITLE = "Mon Jeu";
+    private static final String WINDOW_TITLE = Text.GAMENAME;
 
     @Override
     public void start(Stage primaryStage) {
