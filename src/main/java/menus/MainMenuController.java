@@ -1,6 +1,6 @@
 package menus;
 
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -10,19 +10,19 @@ import javafx.stage.Stage;
  */
 public class MainMenuController {
 
-    private final MainMenuView vue;
+    private final MainMenuView view;
     private final Stage        stage;
 
     public MainMenuController(Stage stage) {
         this.stage = stage;
-        this.vue   = new MainMenuView();
-        connecterActions();
+        this.view = new MainMenuView();
+        configureEvents();
     }
 
-    private void connecterActions() {
-        vue.getBtnPlay().setOnAction(e   -> launch());
-        vue.getBtnSettings().setOnAction(e -> settings());
-        vue.getBtnQuit().setOnAction(e -> stage.close());
+    private void configureEvents() {
+        view.getBtnPlay().setOnAction(e -> launch());
+        view.getBtnSettings().setOnAction(e -> settings());
+        view.getBtnQuit().setOnAction(e -> stage.close());
     }
 
     private void launch() {
@@ -33,10 +33,7 @@ public class MainMenuController {
         // TODO : afficher la fenêtre ou scène d'options
     }
 
-    /**
-     * Retourne la vue racine du menu, prête à être insérée dans une Scene.
-     */
-    public VBox getView() {
-        return vue.getLocalRoot();
+    public void show(StackPane root) {
+        view.show(root);
     }
 }

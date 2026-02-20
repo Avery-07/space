@@ -2,14 +2,12 @@ package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import menus.MainMenuController;
 import util.Text;
 
 public class Main extends Application {
-
-
-    // github test
 
     private static final int WINDOW_WIDTH  = 800;
     private static final int WINDOW_HEIGHT = 600;
@@ -17,13 +15,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Construction du menu principal
+
+        // Scene Creation
+        StackPane root = new StackPane();
+        Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        // Main Menu creation
         MainMenuController mainMenuController = new MainMenuController(primaryStage);
+        mainMenuController.show(root);
 
-        // Création de la scène avec la vue du menu
-        Scene scene = new Scene(mainMenuController.getView(), WINDOW_WIDTH, WINDOW_HEIGHT);
-
-        // Configuration de la fenêtre
+        // Configuration
         primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

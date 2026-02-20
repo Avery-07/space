@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import util.Style;
 import util.Text;
@@ -37,24 +38,17 @@ public class MainMenuView {
         localRoot.setBackground(Style.BackgroundStyle());
     }
 
-    // -------------------------------------------------------
-    //  Méthodes privées
-    // -------------------------------------------------------
-
     private Button creerBouton(String texte) {
         Button bouton = new Button(texte);
         Style.applyStyle(bouton);
         return bouton;
     }
 
-    // -------------------------------------------------------
-    //  Getters — exposés au contrôleur
-    // -------------------------------------------------------
-
-    /** Retourne le panneau racine, prêt à être inséré dans une Scene. */
-    public VBox getLocalRoot() { return localRoot; }
-
     public Button getBtnPlay()   { return btnPlay;   }
     public Button getBtnSettings() { return btnSettings; }
     public Button getBtnQuit() { return btnQuit; }
+
+    public void show(StackPane root) {
+        root.getChildren().add(localRoot);
+    }
 }
