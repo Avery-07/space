@@ -3,23 +3,32 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Planet extends CelestialBody {
-    private int ownerID; // 0 for neutral, or Player ID
-    private int totalSlots;
-    private List<BuildingSlot> slots;
+/**
+ * A Planet can be owned by a player and have its own satellites (Moons).
+ */
+class Planet extends OrbitingBody {
+    private List<Moon> moons;
+    private String ownerId; // Null if unoccupied
 
-    // Abstracted Stats
-    private double massResources;     // Resource multiplier
-    private double solarEnergyFactor; // How much energy it generates (Distance from star)
+    public Planet(String name, Star parentStar, double mass, double radius,
+                  double orbitalRadius, double orbitalPeriod, double initialPhase) {
+        super(name, parentStar, mass, radius, orbitalRadius, orbitalPeriod, initialPhase);
+        this.moons = new ArrayList<>();
+        this.ownerId = null;
+    }
 
-    public Planet(String name, double distance, double period, int slotsCount) {
-        super(name, distance, period);
-        this.totalSlots = slotsCount;
-        this.slots = new ArrayList<>(slotsCount);
-
-        // Initialize empty slots
-        for (int i = 0; i < slotsCount; i++) {
-            slots.add(new BuildingSlot());
+    @Override
+    public void updatePosition(double totalTime) {
+        super.updatePosition(totalTime);
+        // Update all moons relative to this planet's new position
+        for (Moon moon : moons) {
+            moon.updatePosition(totalTime);
         }
     }
+
+    public void addMoon(Moon moon) {
+        this.moons.add(moon);
+    }
+
+    public void setOwner(String ownerId) { this.ownerId = ownerId; }
 }

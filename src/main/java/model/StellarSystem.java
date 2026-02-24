@@ -1,27 +1,35 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Represents the root of a match.
+ * Manages time and holds the stars that anchor the system.
+ */
 public class StellarSystem {
-    private String systemName;
-    private Star star;
-    private double gameTime;
+    private String name;
+    private List<Star> stars;
+    private double gameTime; // Total elapsed time in seconds
 
     public StellarSystem(String name) {
-        this.systemName = name;
-        this.star = new Star();
+        this.name = name;
+        this.stars = new ArrayList<>();
         this.gameTime = 0;
     }
 
-    // The main heartbeat of the game model
-    public void tick(double deltaTime, double speedMultiplier) {
-        gameTime += deltaTime * speedMultiplier;
-        star.update(deltaTime, speedMultiplier);
+    public void update(double deltaTime, double timeMultiplier) {
+        this.gameTime += deltaTime * timeMultiplier;
+        for (Star star : stars) {
+            star.updatePosition(gameTime);
+        }
     }
 
-    // Method to find a planet by ID for targeting systems
-    public CelestialBody findBody(String name) {
-        // Recursive search through the tree
-        return null;
+    public void addStar(Star star) {
+        this.stars.add(star);
     }
+
+    // Getters
+    public List<Star> getStars() { return stars; }
+    public double getGameTime() { return gameTime; }
 }

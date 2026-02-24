@@ -1,38 +1,22 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class CelestialBody {
+/**
+ * Base class for all objects in space.
+ */
+abstract class CelestialBody {
     protected String name;
-    protected double semiMajorAxis; // Distance from parent
-    protected double orbitalPeriod; // Time for one full orbit
-    protected double currentPhase;  // Current angle in radians (0 to 2*PI)
+    protected double x, y; // Global coordinates
+    protected double mass;
+    protected double radius;
 
-    protected List<CelestialBody> satellites = new ArrayList<>();
-
-    public CelestialBody(String name, double semiMajorAxis, double orbitalPeriod) {
+    public CelestialBody(String name, double mass, double radius) {
         this.name = name;
-        this.semiMajorAxis = semiMajorAxis;
-        this.orbitalPeriod = orbitalPeriod;
-        this.currentPhase = Math.random() * Math.PI * 2; // Random start position
+        this.mass = mass;
+        this.radius = radius;
     }
 
-    // Update position based on time delta
-    public void update(double deltaTime, double gameSpeed) {
-        if (orbitalPeriod > 0) {
-            double angularVelocity = (2 * Math.PI) / orbitalPeriod;
-            currentPhase += angularVelocity * deltaTime * gameSpeed;
-            currentPhase %= (2 * Math.PI);
-        }
+    public abstract void updatePosition(double totalTime);
 
-        // Update all moons/satellites relative to this body
-        for (CelestialBody satellite : satellites) {
-            satellite.update(deltaTime, gameSpeed);
-        }
-    }
-
-    // Get Local X/Y (Relative to parent)
-    public double getLocalX() { return Math.cos(currentPhase) * semiMajorAxis; }
-    public double getLocalY() { return Math.sin(currentPhase) * semiMajorAxis; }
+    public double getX() { return x; }
+    public double getY() { return y; }
 }
