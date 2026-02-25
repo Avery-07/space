@@ -9,11 +9,9 @@ import java.util.List;
  */
 class Star extends CelestialBody {
     private List<Planet> planets;
-    private double luminosity; // For energy scaling
 
-    public Star(String name, double mass, double radius, double luminosity) {
-        super(name, mass, radius);
-        this.luminosity = luminosity;
+    public Star(String name, double size) {
+        super(name, size);
         this.planets = new ArrayList<>();
         // For a simple system, stars start at the origin
         this.x = 0;

@@ -6,13 +6,11 @@ package model;
 abstract class CelestialBody {
     protected String name;
     protected double x, y; // Global coordinates
-    protected double mass;
-    protected double radius;
+    protected double size;
 
-    public CelestialBody(String name, double mass, double radius) {
+    public CelestialBody(String name, double size) {
         this.name = name;
-        this.mass = mass;
-        this.radius = radius;
+        this.size = size;
     }
 
     public abstract void updatePosition(double totalTime);

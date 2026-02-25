@@ -10,9 +10,9 @@ class Planet extends OrbitingBody {
     private List<Moon> moons;
     private String ownerId; // Null if unoccupied
 
-    public Planet(String name, Star parentStar, double mass, double radius,
+    public Planet(String name, Star parentStar, double size,
                   double orbitalRadius, double orbitalPeriod, double initialPhase) {
-        super(name, parentStar, mass, radius, orbitalRadius, orbitalPeriod, initialPhase);
+        super(name, parentStar, size, orbitalRadius, orbitalPeriod, initialPhase);
         this.moons = new ArrayList<>();
         this.ownerId = null;
     }
@@ -31,4 +31,5 @@ class Planet extends OrbitingBody {
     }
 
     public void setOwner(String ownerId) { this.ownerId = ownerId; }
+    public double getSize() { return size; }
 }

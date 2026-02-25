@@ -31,5 +31,6 @@ public class StellarSystem {
 
     // Getters
     public List<Star> getStars() { return stars; }
+    public String getName() { return name; }
     public double getGameTime() { return gameTime; }
 }

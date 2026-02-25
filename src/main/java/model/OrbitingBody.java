@@ -9,9 +9,9 @@ abstract class OrbitingBody extends CelestialBody {
     protected double orbitalPeriod; // Time for one full revolution
     protected double initialPhase;  // Starting angle in radians
 
-    public OrbitingBody(String name, CelestialBody parent, double mass, double radius,
+    public OrbitingBody(String name, CelestialBody parent, double radius,
                         double orbitalRadius, double orbitalPeriod, double initialPhase) {
-        super(name, mass, radius);
+        super(name, radius);
         this.parent = parent;
         this.orbitalRadius = orbitalRadius;
         this.orbitalPeriod = orbitalPeriod;
