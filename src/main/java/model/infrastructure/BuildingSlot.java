@@ -1,4 +1,4 @@
-package model;
+package model.infrastructure;
 
 public class BuildingSlot {
 //    private Building building = null;

@@ -1,12 +1,12 @@
-package model;
+package model.core;
 
 /**
  * Base class for all objects in space.
  */
-abstract class CelestialBody {
-    protected String name;
-    protected double x, y; // Global coordinates
-    protected double size;
+public abstract class CelestialBody {
+    public String name;
+    protected double x, y;
+    public double size;
 
     public CelestialBody(String name, double size) {
         this.name = name;

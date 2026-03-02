@@ -1,4 +1,6 @@
-package model;
+package model.celestial;
+
+import model.core.CelestialBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +9,12 @@ import java.util.List;
  * A Star sits at the center of its own orbital group.
  * In a multi-star system, stars could orbit a common barycenter.
  */
-class Star extends CelestialBody {
+public class Star extends CelestialBody {
+
+    // pre-existing variables :
+    // String name;
+    // double x, y, size;
+
     private List<Planet> planets;
 
     public Star(String name, double size) {

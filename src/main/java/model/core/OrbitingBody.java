@@ -1,9 +1,15 @@
-package model;
+package model.core;
 
 /**
  * Represents any body that revolves around another (Planets, Moons, Asteroids).
  */
-abstract class OrbitingBody extends CelestialBody {
+public abstract class OrbitingBody extends CelestialBody {
+
+    // present variables :
+    // String name;
+    // double x, y;
+    // double size;
+
     protected CelestialBody parent;
     protected double orbitalRadius; // Distance from parent
     protected double orbitalPeriod; // Time for one full revolution

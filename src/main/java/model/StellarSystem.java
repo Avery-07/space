@@ -1,5 +1,7 @@
 package model;
 
+import model.celestial.Star;
+
 import java.util.ArrayList;
 import java.util.List;
 

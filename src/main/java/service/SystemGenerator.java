@@ -1,6 +1,9 @@
-package model;
+package service;
 
-import java.util.Random;
+import model.StellarSystem;
+import model.celestial.Moon;
+import model.celestial.Planet;
+import model.celestial.Star;
 
 import java.util.Random;
 
