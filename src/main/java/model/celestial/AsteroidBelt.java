@@ -14,4 +14,10 @@ public class AsteroidBelt extends OrbitingBody {
     public AsteroidBelt(String name, CelestialBody parentBody, double size, double orbitalRadius, double orbitalPeriod, double initialPhase) {
         super(name, parentBody, size, orbitalRadius, orbitalPeriod, initialPhase);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(String.format("Asteroid Belt: %s (Size: %.2f)", name, size));
+        return sb.toString();
+    }
 }

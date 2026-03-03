@@ -31,6 +31,10 @@ public class StellarSystem {
         this.stars.add(star);
     }
 
+    public String toString() {
+        return stars.getFirst().toString();
+    }
+
     // Getters
     public List<Star> getStars() { return stars; }
     public String getName() { return name; }

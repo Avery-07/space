@@ -1,6 +1,7 @@
 package model.celestial;
 
 import model.core.OrbitingBody;
+import model.type.PlanetType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,23 +14,35 @@ public class Planet extends OrbitingBody {
     // CelestialBody parent;
     // double orbitalRadius, orbitalPeriod, initialPhase;
 
-    private List<OrbitingBody> orbitingBodies;
+    private PlanetType type;
+    private List<OrbitingBody> satellites;
 
     public Planet(String name, Star parentStar, double size, double orbitalRadius, double orbitalPeriod, double initialPhase) {
         super(name, parentStar, size, orbitalRadius, orbitalPeriod, initialPhase);
-        this.orbitingBodies = new ArrayList<>();
+        this.satellites = new ArrayList<>();
     }
 
     @Override
     public void updatePosition(double totalTime) {
         super.updatePosition(totalTime);
-        // Update all moons relative to this planet's new position
-        for (OrbitingBody body : orbitingBodies) {
-            body.updatePosition(totalTime);
+        for (OrbitingBody satellite : satellites) {
+            satellite.updatePosition(totalTime);
         }
     }
 
-    public void addMoon(Moon moon) {
-        this.orbitingBodies.add(moon);
+    public void addSatellite(OrbitingBody satellite) {
+        this.satellites.add(satellite);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(String.format("Planet: %s (Size: %.2f)", name, size));
+        for (OrbitingBody child : satellites) {
+            // Indent children for a "tree" view in the console
+            sb.append("\n   ").append(child.toString().replace("\n", "\n      "));
+        }
+        return sb.toString();
+    }
+
+    public List<OrbitingBody> getSatellites() { return satellites; }
 }

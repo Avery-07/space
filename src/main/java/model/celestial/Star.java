@@ -1,6 +1,7 @@
 package model.celestial;
 
 import model.core.CelestialBody;
+import model.core.OrbitingBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,11 @@ public class Star extends CelestialBody {
     // String name;
     // double x, y, size;
 
-    private List<Planet> planets;
+    private List<OrbitingBody> satellites;
 
     public Star(String name, double size) {
         super(name, size);
-        this.planets = new ArrayList<>();
+        this.satellites = new ArrayList<>();
         // For a simple system, stars start at the origin
         this.x = 0;
         this.y = 0;
@@ -29,12 +30,25 @@ public class Star extends CelestialBody {
     public void updatePosition(double totalTime) {
         // If it's a single star, it stays at 0,0.
         // If binary, add orbital logic here similar to OrbitingBody.
-        for (Planet planet : planets) {
-            planet.updatePosition(totalTime);
+        for (OrbitingBody orbitingBody : satellites) {
+            orbitingBody.updatePosition(totalTime);
         }
     }
 
-    public void addPlanet(Planet planet) {
-        this.planets.add(planet);
+    public void addSatellite(OrbitingBody satellite) {
+        this.satellites.add(satellite);
     }
+
+    @Override
+    public String toString() {
+        String str = "Star : " + name + "\nsize : " + size;
+        for(OrbitingBody orbitingBody : satellites)
+            if(orbitingBody instanceof Planet)
+                str += "\n\n" + ((Planet) orbitingBody);
+            else
+                str += "\n\n" + ((AsteroidBelt) orbitingBody);
+        return str;
+    }
+
+    public List<OrbitingBody> getSatellites() { return satellites; }
 }

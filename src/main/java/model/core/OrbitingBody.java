@@ -33,4 +33,6 @@ public abstract class OrbitingBody extends CelestialBody {
         this.x = parent.getX() + Math.cos(angle) * orbitalRadius;
         this.y = parent.getY() + Math.sin(angle) * orbitalRadius;
     }
+
+    public double getOrbitalRadius() { return orbitalRadius; }
 }

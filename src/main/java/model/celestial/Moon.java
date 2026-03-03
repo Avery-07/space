@@ -13,4 +13,10 @@ public class Moon extends OrbitingBody {
     public Moon(String name, Planet parentPlanet, double size, double orbitalRadius, double orbitalPeriod, double initialPhase) {
         super(name, parentPlanet, size, orbitalRadius, orbitalPeriod, initialPhase);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(String.format("Moon: %s (Size: %.2f)", name, size));
+        return sb.toString();
+    }
 }
