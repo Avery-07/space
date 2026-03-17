@@ -1,5 +1,7 @@
 package model.core;
 
+import util.AdditionalMath;
+
 /**
  * Represents any body that revolves around another (Planets, Moons, Asteroids).
  */
@@ -15,12 +17,12 @@ public abstract class OrbitingBody extends CelestialBody {
     protected double orbitalPeriod; // Time for one full revolution
     protected double initialPhase;  // Starting angle in radians
 
-    public OrbitingBody(String name, CelestialBody parent, double radius,
-                        double orbitalRadius, double orbitalPeriod, double initialPhase) {
-        super(name, radius);
+    public OrbitingBody(String name, CelestialBody parent, double size,
+                        double orbitalRadius, double initialPhase) {
+        super(name, size);
         this.parent = parent;
         this.orbitalRadius = orbitalRadius;
-        this.orbitalPeriod = orbitalPeriod;
+        this.orbitalPeriod = AdditionalMath.DistanceToSpeed(orbitalRadius);
         this.initialPhase = initialPhase;
     }
 

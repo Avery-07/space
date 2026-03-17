@@ -17,8 +17,9 @@ public class Planet extends OrbitingBody {
     private PlanetType type;
     private List<OrbitingBody> satellites;
 
-    public Planet(String name, Star parentStar, double size, double orbitalRadius, double orbitalPeriod, double initialPhase) {
-        super(name, parentStar, size, orbitalRadius, orbitalPeriod, initialPhase);
+    public Planet(String name, PlanetType type , Star parentStar, double size, double orbitalRadius, double initialPhase) {
+        super(name, parentStar, size, orbitalRadius, initialPhase);
+        this.type = type;
         this.satellites = new ArrayList<>();
     }
 
@@ -44,5 +45,6 @@ public class Planet extends OrbitingBody {
         return sb.toString();
     }
 
+    public PlanetType getType() { return type; }
     public List<OrbitingBody> getSatellites() { return satellites; }
 }

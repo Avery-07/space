@@ -2,92 +2,59 @@ package service;
 
 import model.StellarSystem;
 import model.celestial.*;
-import model.core.CelestialBody;
 import model.type.PlanetType;
 
 import java.util.Random;
 
-import static util.AdditionalMath.round;
-
 public class SystemGenerator {
     private static final Random RNG = new Random();
 
-    // Physical Constants (Units are arbitrary for game scale)
-    private static final double MIN_STAR_SIZE = 50.0;
-    private static final double MAX_STAR_SIZE = 200.0;
-    private static final double SYSTEM_SIZE_MULTIPLIER = 7.0;
-    private static final double KEPLER_CONSTANT = 0.5; // Adjusts speed of time
+    // Physical Constants
 
     public static StellarSystem generate(String systemName) {
         StellarSystem sys = new StellarSystem(systemName);
 
         // 1. Generate the Star
-        double starSize = MIN_STAR_SIZE + (MAX_STAR_SIZE - MIN_STAR_SIZE) * RNG.nextDouble();
+        double starSize = 100;
         Star star = new Star(systemName + " Prime", starSize);
         sys.addStar(star);
 
-        // 2. Calculate System Boundaries
-        double maxRadius = starSize * SYSTEM_SIZE_MULTIPLIER;
-        double frostLine = maxRadius * 0.4; // 2/5 distance
+        // 2. Populate Orbits
+        Planet A0 = new Planet("TIMERDE_1", PlanetType.ROCKY, star, 10, 200, 0);
 
-        // 3. Populate Orbits
-        double currentRadius = starSize * 2.0; // Start orbiting outside the star
-        while (currentRadius < maxRadius) {
-            // Step distance between orbits (Randomized gap)
-            currentRadius += 75 + RNG.nextDouble() * 100;
-            if (currentRadius > maxRadius) break;
+        Planet B0 = new Planet("TIMERDE_2", PlanetType.ROCKY, star, 30, 300, 0);
+        Moon B1 = new Moon("TIMERDE_2_1", B0, 13, 40, 0);
+        Moon B2 = new Moon("TIMERDE_2_2", B0, 5, 15, 0);
+        B0.addSatellite(B1);
+        B0.addSatellite(B2);
 
-            // Chance for an Asteroid Belt vs a Planet
-            if (RNG.nextDouble() < 0.1) {
-                star.addSatellite(generateAsteroidBelt(star, currentRadius));
-            } else {
-                Planet p = generatePlanet(star, currentRadius, frostLine);
-                generateSatellitesForPlanet(p);
-                star.addSatellite(p);
-            }
-        }
+        Planet C0 = new Planet("TIMERDE_3", PlanetType.ROCKY, star, 20, 450, 0);
+        Moon C1 = new Moon("TIMERDE_3_1", C0, 7, 20, 0);
+        C0.addSatellite(C1);
+
+        AsteroidBelt D0 = new AsteroidBelt("TIMERDE_3", star, 30, 600, 0);
+
+        Planet E0 = new Planet("TIMERDE_4", PlanetType.GASEOUS, star, 65, 800, 0);
+        Moon E1 = new Moon("TIMERDE_4_1", E0, 13, 40, 0);
+        AsteroidBelt E2 = new AsteroidBelt("TIMERDE_3", star, 10, 50, 0);
+        Moon E3 = new Moon("TIMERDE_4_3", E0, 18, 100, 0);
+        C0.addSatellite(E1);
+        //C0.addSatellite(E2);
+        C0.addSatellite(E3);
+
+        Planet F0 = new Planet("TIMERDE_5", PlanetType.GASEOUS, star, 37, 1100, 0);
+        Moon F1 = new Moon("TIMERDE_5_1", F0, 7, 20, 0);
+        Moon F2 = new Moon("TIMERDE_5_2", F0, 7, 20, 0);
+        C0.addSatellite(F1);
+        C0.addSatellite(F2);
+
+        star.addSatellite(A0);
+        star.addSatellite(B0);
+        star.addSatellite(C0);
+        //star.addSatellite(D0);
+        star.addSatellite(E0);
+        star.addSatellite(F0);
 
         return sys;
-    }
-
-    private static Planet generatePlanet(Star star, double radius, double frostLine) {
-        PlanetType type = (radius > frostLine && RNG.nextDouble() > 0.3) ? PlanetType.GASEOUS : PlanetType.ROCKY;
-
-        // Gaseous planets are 3x-8x larger than rocky ones
-        double sizeBase = (type == PlanetType.GASEOUS) ? 15.0 : 3.0;
-        double size = round(sizeBase + RNG.nextDouble() * ((type == PlanetType.GASEOUS) ? 20.0 : 5.0));
-
-        String name = "Planet " + (int)radius;
-        double period = calculateKeplerPeriod(radius);
-        double phase = RNG.nextDouble() * 2 * Math.PI;
-
-        return new Planet(name, star, size, radius, period, phase);
-    }
-
-    private static AsteroidBelt generateAsteroidBelt(CelestialBody parent, double radius) {
-        double period = calculateKeplerPeriod(radius);
-        return new AsteroidBelt(parent.name + " Ring", parent, 1.0, radius, period, 0);
-    }
-
-    private static void generateSatellitesForPlanet(Planet parent) {
-        // More size = more gravity = more moons
-        int moonCount = (int) (parent.size / 5.0 * RNG.nextDouble());
-
-        // Chance for planetary rings if it's a large planet
-        if (parent.size > 15.0 && RNG.nextDouble() > 0.8) {
-            parent.addSatellite(generateAsteroidBelt(parent, parent.size * 1.5));
-        }
-
-        for (int i = 0; i < moonCount; i++) {
-            double moonRadius = parent.size + 10 + (i * 10);
-            double moonPeriod = calculateKeplerPeriod(moonRadius) * 0.2; // Moons orbit faster
-            Moon moon = new Moon(parent.name + "-m" + (i+1), parent, 1.0 + RNG.nextDouble() * 2,
-                    moonRadius, moonPeriod, RNG.nextDouble() * 6.28);
-            parent.addSatellite(moon);
-        }
-    }
-
-    private static double calculateKeplerPeriod(double radius) {
-        return KEPLER_CONSTANT * Math.sqrt(Math.pow(radius, 3));
     }
 }

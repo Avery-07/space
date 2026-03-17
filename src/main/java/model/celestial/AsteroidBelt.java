@@ -11,8 +11,8 @@ public class AsteroidBelt extends OrbitingBody {
     // CelestialBody parent;
     // double orbitalRadius, orbitalPeriod, initialPhase;
 
-    public AsteroidBelt(String name, CelestialBody parentBody, double size, double orbitalRadius, double orbitalPeriod, double initialPhase) {
-        super(name, parentBody, size, orbitalRadius, orbitalPeriod, initialPhase);
+    public AsteroidBelt(String name, CelestialBody parentBody, double size, double orbitalRadius, double initialPhase) {
+        super(name, parentBody, size, orbitalRadius, initialPhase);
     }
 
     @Override

@@ -10,8 +10,8 @@ public class Moon extends OrbitingBody {
     // CelestialBody parent;
     // double orbitalRadius, orbitalPeriod, initialPhase;
 
-    public Moon(String name, Planet parentPlanet, double size, double orbitalRadius, double orbitalPeriod, double initialPhase) {
-        super(name, parentPlanet, size, orbitalRadius, orbitalPeriod, initialPhase);
+    public Moon(String name, Planet parentPlanet, double size, double orbitalRadius, double initialPhase) {
+        super(name, parentPlanet, size, orbitalRadius, initialPhase);
     }
 
     @Override
