@@ -3,6 +3,11 @@ package util;
 public class Position {
     public double X,Y;
 
+    public Position() {
+        this.X = 0;
+        this.Y = 0;
+    }
+
     public Position(double X, double Y) {
         this.X = X;
         this.Y = Y;

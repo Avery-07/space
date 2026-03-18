@@ -15,7 +15,7 @@ public class SystemRenderer {
     private final Canvas canvas;
     private final GraphicsContext gc;
     private final StellarSystem system;
-    private double zoom = 1.0; // Scale factor to fit the system
+    private double zoom = 1.0;
     private double originX, originY;
 
     public SystemRenderer(Canvas canvas, StellarSystem system) {
@@ -50,23 +50,21 @@ public class SystemRenderer {
         originX = canvas.getWidth() / 2;
         originY = canvas.getHeight() / 2;
 
-        for (Star star : system.getStars()) {
-            drawBody(star);
-        }
+        drawBody(system.getStar());
     }
 
     private void drawBody(CelestialBody body) {
         // Calculate screen position: Screen = Origin + (ModelCoord * Zoom)
-        double screenX = originX + (body.getX() * zoom);
-        double screenY = originY + (body.getY() * zoom);
-        double drawSize = Math.max(2, body.size * zoom); // Don't let planets disappear
+        double screenX = originX + body.getPosition().X;
+        double screenY = originY + body.getPosition().Y;
+        double drawSize = body.getSize();
 
         // Draw Orbit Path if it's an orbiting body
         if (body instanceof OrbitingBody ob) {
             gc.setStroke(Color.web("#333333"));
             gc.setLineWidth(1);
-            double orbitRadius = ob.getOrbitalRadius() * zoom;
-            gc.strokeOval(originX - orbitRadius, originY - orbitRadius, orbitRadius * 2, orbitRadius * 2);
+            double orbitRadius = ob.getOrbitalRadius();
+            gc.strokeOval(originX + ob.getParent().getPosition().X - orbitRadius, originY + ob.getParent().getPosition().Y - orbitRadius, orbitRadius * 2, orbitRadius * 2);
         }
 
         // Draw the Body
@@ -83,8 +81,8 @@ public class SystemRenderer {
 
     private Color getColorForBody(CelestialBody body) {
         if (body instanceof Star) return Color.YELLOW;
-        if (body instanceof Planet && ((Planet) body).getType() == PlanetType.GASEOUS ) return Color.LIGHTBLUE;
-        if (body instanceof Planet && ((Planet) body).getType() == PlanetType.ROCKY ) return Color.ORANGE;
+        if (body instanceof Planet planet && planet.getType() == PlanetType.GASEOUS ) return Color.LIGHTBLUE;
+        if (body instanceof Planet planet && planet.getType() == PlanetType.ROCKY ) return Color.ORANGE;
         if (body instanceof Moon) return Color.LIGHTGRAY;
         if (body instanceof AsteroidBelt) return Color.LIGHTGRAY;
         return Color.WHITE;

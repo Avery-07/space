@@ -17,7 +17,7 @@ public class SystemGenerator {
         // 1. Generate the Star
         double starSize = 100;
         Star star = new Star(systemName + " Prime", starSize);
-        sys.addStar(star);
+        sys.setStar(star);
 
         // 2. Populate Orbits
         Planet A0 = new Planet("TIMERDE_1", PlanetType.ROCKY, star, 10, 200, 0);
@@ -51,7 +51,7 @@ public class SystemGenerator {
         star.addSatellite(A0);
         star.addSatellite(B0);
         star.addSatellite(C0);
-        //star.addSatellite(D0);
+        star.addSatellite(D0);
         star.addSatellite(E0);
         star.addSatellite(F0);
 

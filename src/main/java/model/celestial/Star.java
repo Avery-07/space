@@ -2,6 +2,7 @@ package model.celestial;
 
 import model.core.CelestialBody;
 import model.core.OrbitingBody;
+import util.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,7 @@ public class Star extends CelestialBody {
         super(name, size);
         this.satellites = new ArrayList<>();
         // For a simple system, stars start at the origin
-        this.x = 0;
-        this.y = 0;
+        this.position = new Position();
     }
 
     @Override

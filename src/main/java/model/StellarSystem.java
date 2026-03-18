@@ -11,32 +11,29 @@ import java.util.List;
  */
 public class StellarSystem {
     private String name;
-    private List<Star> stars;
+    private Star star;
     private double gameTime; // Total elapsed time in seconds
 
     public StellarSystem(String name) {
         this.name = name;
-        this.stars = new ArrayList<>();
         this.gameTime = 0;
     }
 
     public void update(double deltaTime, double timeMultiplier) {
         this.gameTime += deltaTime * timeMultiplier;
-        for (Star star : stars) {
-            star.updatePosition(gameTime);
-        }
+        star.updatePosition(gameTime);
     }
 
-    public void addStar(Star star) {
-        this.stars.add(star);
+    public void setStar(Star star) {
+        this.star = star;
     }
 
     public String toString() {
-        return stars.getFirst().toString();
+        return star.toString();
     }
 
     // Getters
-    public List<Star> getStars() { return stars; }
+    public Star getStar() { return star; }
     public String getName() { return name; }
     public double getGameTime() { return gameTime; }
 }

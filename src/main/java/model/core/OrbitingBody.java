@@ -32,9 +32,12 @@ public abstract class OrbitingBody extends CelestialBody {
         double angle = initialPhase + (2 * Math.PI * totalTime / orbitalPeriod);
 
         // Calculate position relative to parent
-        this.x = parent.getX() + Math.cos(angle) * orbitalRadius;
-        this.y = parent.getY() + Math.sin(angle) * orbitalRadius;
+        this.position.X = parent.getPosition().X + Math.cos(angle) * orbitalRadius;
+        this.position.Y = parent.getPosition().Y + Math.sin(angle) * orbitalRadius;
     }
 
+    public CelestialBody getParent() { return parent; }
     public double getOrbitalRadius() { return orbitalRadius; }
+    public double getOrbitalPeriod() { return orbitalPeriod; }
+    public double getInitialPhase() { return initialPhase; }
 }
